@@ -1,14 +1,7 @@
 # Snowflake CoCo Automations — Production Architecture
-
-[![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
-[![Content License: CC BY 4.0](https://img.shields.io/badge/Content-CC_BY_4.0-lightgrey.svg)](LICENSE-CC-BY-4.0)
-[![Snowflake](https://img.shields.io/badge/Snowflake-CoCo_Automations-29B5E8.svg)](https://docs.snowflake.com/en/user-guide/cortex-code/cortex-code-automations)
-[![Status](https://img.shields.io/badge/Status-Public_Preview_(Aug_2026)-orange.svg)](https://docs.snowflake.com/en/release-notes/2026/other/2026-08-21-cortex-code-automations-preview)
-
 Production-grade implementation patterns for Snowflake CoCo Automations — AGENT TASKs, Restricted Session Scope, hooks, MCP integration, and operational monitoring.
 
 ## Overview
-
 CoCo Automations ([Public Preview, August 21, 2026](https://docs.snowflake.com/en/release-notes/2026/other/2026-08-21-cortex-code-automations-preview)) turn a natural-language prompt into a recurring, unattended CoCo run stored as an AGENT TASK in Snowflake. This repository provides:
 
 - **Five production automation patterns** with tested prompts
@@ -30,7 +23,6 @@ CoCo Automations ([Public Preview, August 21, 2026](https://docs.snowflake.com/e
 | 5 | Schema Drift Detector | Daily 5am UTC | Diffs ACCOUNT_USAGE.COLUMNS snapshots to catch unexpected DDL |
 
 ## Repository Structure
-
 ```
 snowflake-coco-automations/
 ├── docs/
@@ -59,23 +51,19 @@ snowflake-coco-automations/
 ```
 
 ## Quick Start
-
 ### Prerequisites
-
 - Snowflake account on AWS, Azure, or GCP (commercial region)
 - CoCo CLI installed or Snowsight access
 - `EXECUTE AGENT TASK` privilege (granted to `PUBLIC` by default)
 - Default role with access to target objects
 
 ### 1. Verify Your Default Role
-
 ```sql
 SHOW PARAMETERS LIKE 'DEFAULT_ROLE' IN USER;
 -- If wrong: ALTER USER <you> SET DEFAULT_ROLE = 'DATA_ENGINEER';
 ```
 
 ### 2. Deploy Governance Controls
-
 ```bash
 snowsql -f sql/governance/01-restrict-execute-agent-task.sql
 snowsql -f sql/governance/02-create-restricted-session-scope.sql
@@ -83,7 +71,6 @@ snowsql -f sql/governance/03-attach-session-policy.sql
 ```
 
 ### 3. Create Your First Automation
-
 ```bash
 cortex automation create \
   --name wh_cost_anomaly \
@@ -93,14 +80,12 @@ cortex automation create \
 ```
 
 ### 4. Monitor Runs
-
 ```bash
 cortex automation list
 cortex automation doctor wh_cost_anomaly --limit 5
 ```
 
 ## Feature Status
-
 | Feature | Status | Date |
 |---|---|---|
 | CoCo Automations | [Public Preview](https://docs.snowflake.com/en/release-notes/2026/other/2026-08-21-cortex-code-automations-preview) | August 21, 2026 |
@@ -110,23 +95,7 @@ cortex automation doctor wh_cost_anomaly --limit 5
 | Hooks (pre-run/post-run) | Public Preview | 2026 |
 
 ## Preview Limits
-
 - Minimum schedule frequency: **1 hour**
 - Thread and run history retention: **2 months**
 - Schedules: **time-based only** (no event-based triggers)
 - No mid-run attachment or interactive resume
-
-## Contributing
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
-
-## License
-
-- **Code and SQL:** [Apache License 2.0](LICENSE)
-- **Article and documentation content:** [CC BY 4.0](LICENSE-CC-BY-4.0)
-
-## Attribution
-
-Snowflake Chronicles — Satish Kumar
-
-Provided "as is" for educational purposes. Validate and test all examples before using them in production.
