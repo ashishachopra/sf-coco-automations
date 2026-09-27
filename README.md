@@ -2,7 +2,7 @@
 Production-grade implementation patterns for Snowflake CoCo Automations — AGENT TASKs, Restricted Session Scope, hooks, MCP integration, and operational monitoring.
 
 ## Overview
-CoCo Automations ([Public Preview, August 21, 2026](https://docs.snowflake.com/en/release-notes/2026/other/2026-08-21-cortex-code-automations-preview)) turn a natural-language prompt into a recurring, unattended CoCo run stored as an AGENT TASK in Snowflake. This repository provides:
+CoCo Automations turn a natural-language prompt into a recurring, unattended CoCo run stored as an AGENT TASK in Snowflake. This repository provides:
 
 - **Five production automation patterns** with tested prompts
 - **Governance configuration** including Restricted Session Scope (GA)
